@@ -1,0 +1,19 @@
+language: ruby
+rvm:
+- 2.3.1
+sudo: required
+dist: trusty
+env:
+  global:
+  - RAILS_ENV: test
+cache: bundler
+bundler_args: "--without production --deployment --path=vendor/bundler"
+branches:
+  only:
+  - master
+  - develop
+script:
+- bundle exec rake db:drop
+- bundle exec rake db:create
+- bundle exec rake db:migrate
+- bundle exec rspec spec/
